@@ -24,22 +24,24 @@ Font2 = customtkinter.CTkFont(family="Franklin Gothic Medium",size=16)
 e = customtkinter.CTkEntry(master=root,placeholder_text="Write anything to listen...",width=300, height=40,corner_radius=70, 
 border_width=2,border_color="Green",fg_color="transparent", text_color="Green",font=Font2,placeholder_text_color="Green")
 e.place(x=140, y = 200)
-
-msg = e.get()
+
 
 # Making Function To Convert Text to Speech
 
 def send ():
-    yo = gTTS(text=msg,lang="en",slow = False)
-    yo.save("abc.mp3")
-    os.system("start abc.mp3")
+    msg = e.get()
+    if msg:
+
+        yo = gTTS(text=msg,lang="en",slow = False)
+        yo.save("abc.mp3")
+        os.system("start abc.mp3")
     
 
 def reset():
     e.delete(0, END)
-    os.remove("abc.mp3")
-
-
+    if os.path.exists("abc.mp3"):
+        os.remove("abc.mp3")
+
 img = customtkinter.CTkImage(dark_image=Image.open("playcircle.png"),size=(30,30))
 
 eBt = customtkinter.CTkButton(master=root,width=115, height=40,corner_radius=70,text="Play",border_color="#03A9F4",
